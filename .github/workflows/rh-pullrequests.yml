@@ -16,7 +16,7 @@ jobs:
           echo -n "action $GITHUB_ACTION: $GITHUB_ACTION"
           echo -n "sha $GITHUB_SHA: $GITHUB_SHA"
           echo -n "sha $GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-          cat github_event_path
+          # cat $github_event_path
 
       - name: Checkout
         uses: actions/checkout@v2
