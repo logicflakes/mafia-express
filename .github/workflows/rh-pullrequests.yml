@@ -8,17 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
-          echo "$GITHUB_CONTEXT"
+          
+          echo -n "JOB: ${{ github.job }}"
+          echo -n "JOB: $GITHUB_JOB"
+          echo -n "ref: ${{ github.ref }}"
+          echo -n "event.action: ${{ github.event.action }}"
+          echo -n "event.action: $GITHUB_EVENT_ACTION"
           echo -n "-b GITHUB_REF: $GITHUB_REF"
-          echo -n "action $GITHUB_ACTION: $GITHUB_ACTION"
-          echo -n "sha $GITHUB_SHA: $GITHUB_SHA"
-          echo -n "sha $GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          echo -n "action GITHUB_ACTION: $GITHUB_ACTION"
+          echo -n "number : ${{ github.event.number }}"
+          echo -n "sha GITHUB_SHA: $GITHUB_SHA"
+          echo -n "repo GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
           # cat $github_event_path
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
