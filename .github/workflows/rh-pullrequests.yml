@@ -6,7 +6,6 @@ jobs:
   prdata:
     name: Submit Pull Request Data
     runs-on: ubuntu-latest
-    env:
     steps:
       - name: Dump GitHub context
         env:
