@@ -7,17 +7,18 @@ jobs:
     name: Submit Pull Request Data
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
+      - name: Submit Pull Request Data
         run: |
+          echo "--number ${{ github.event.number }} " > reliza_command
+          echo "--endpoint ${{ github.event.pull_request.html_url }} " >> reliza_command
+          echo "--branch ${{ github.head_ref }} " >> reliza_command
+          echo "--targetBranch ${{ github.base_ref }} " >> reliza_command
+          echo "--state ${{ github.event.pull_request.state }} " >> reliza_command
+          echo "--title ${{ github.event.pull_request.title }} " >> reliza_command
+          echo "--closedDate ${{ github.event.pull_request.closed_at }} " >> reliza_command
+          echo "--createdDate ${{ github.event.pull_request.created_at }} " >> reliza_command
+          echo "--mergedDate ${{ github.event.pull_request.merged_at }} " >> reliza_command
+          # echo "--draft ${{ github.event.pull_request.draft }} " >> reliza_command
+          echo "-i ${{ secrets.RELIZA_API_ID }} -k ${{ secrets.RELIZA_API_KEY }} -u ${{ secrets.RELIZA_API_URL }}" >> reliza_command
+          cat reliza_command
           
-          echo -n "JOB: ${{ github.job }}"
-          echo -n "JOB: $GITHUB_JOB"
-          echo -n "ref: ${{ github.ref }}"
-          echo -n "event.action: ${{ github.event.action }}"
-          echo -n "event.action: $GITHUB_EVENT_ACTION"
-          echo -n "-b GITHUB_REF: $GITHUB_REF"
-          echo -n "action GITHUB_ACTION: $GITHUB_ACTION"
-          echo -n "number : ${{ github.event.number }}"
-          echo -n "sha GITHUB_SHA: $GITHUB_SHA"
-          echo -n "repo GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-          # cat $github_event_path
