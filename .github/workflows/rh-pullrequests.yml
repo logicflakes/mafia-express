@@ -17,11 +17,11 @@ jobs:
           echo "--targetBranch ${{ github.base_ref }} " >> reliza_command
           echo "--state ${{ github.event.pull_request.state }} " >> reliza_command
           echo "--title ${{ github.event.pull_request.title }} " >> reliza_command
-          if [ ! -z ${ github.event.pull_request.closed_at } ]; then
+          if [[ ${{ github.event.pull_request.closed_at != '' }} ]]; then
             echo "--closedDate ${{ github.event.pull_request.closed_at }} " >> reliza_command
           fi
           echo "--createdDate ${{ github.event.pull_request.created_at }} " >> reliza_command
-          if [[ ! -z ${ github.event.pull_request.merged_at } ]]; then
+          if [[ ${{ github.event.pull_request.merged_at != ''}} ]]; then
             echo "--mergedDate ${{ github.event.pull_request.merged_at }} " >> reliza_command
           fi
           # echo "--draft ${{ github.event.pull_request.draft }} " >> reliza_command
