@@ -1,0 +1,23 @@
+name: Pull Request Workflow
+on: 
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+jobs: 
+  prdata:
+    name: Submit Pull Request Data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        run: |
+          
+          echo -n "JOB: ${{ github.job }}"
+          echo -n "JOB: $GITHUB_JOB"
+          echo -n "ref: ${{ github.ref }}"
+          echo -n "event.action: ${{ github.event.action }}"
+          echo -n "event.action: $GITHUB_EVENT_ACTION"
+          echo -n "-b GITHUB_REF: $GITHUB_REF"
+          echo -n "action GITHUB_ACTION: $GITHUB_ACTION"
+          echo -n "number : ${{ github.event.number }}"
+          echo -n "sha GITHUB_SHA: $GITHUB_SHA"
+          echo -n "repo GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          # cat $github_event_path
