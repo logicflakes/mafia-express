@@ -20,5 +20,6 @@ jobs:
           echo "--mergedDate ${{ github.event.pull_request.merged_at }} " >> reliza_command
           # echo "--draft ${{ github.event.pull_request.draft }} " >> reliza_command
           echo "-i ${{ secrets.RELIZA_API_ID }} -k ${{ secrets.RELIZA_API_KEY }} -u ${{ secrets.RELIZA_API_URL }}" >> reliza_command
-          cat reliza_command
+          echo docker run --rm relizaio/reliza-cli prdata $(cat reliza_command) > rlz_cmd_exec
+          eval $(cat rlz_cmd_exec)
           
