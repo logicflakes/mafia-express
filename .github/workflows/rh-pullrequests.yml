@@ -11,7 +11,8 @@ jobs:
         run: |
           set -e
           set -x
-          echo "commits:" $(git fetch -q --deepen=${{ github.event.pull_request.commits }} origin ${{ github.base_ref }}  ${{ github.head_ref }}) >> test_commits
+          # echo "commits:" $(git fetch -q --deepen=${{ github.event.pull_request.commits }} origin ${{ github.base_ref }}  ${{ github.head_ref }}) >> test_commits
+          echo "commits:" $(gh pr view ${{ github.event.number }} --json commits) >> test_commits
           cat test_commits
           echo "--number ${{ github.event.number }} " > reliza_command
           echo "--endpoint ${{ github.event.pull_request.html_url }} " >> reliza_command
