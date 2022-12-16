@@ -6,6 +6,8 @@ jobs:
   prdata:
     name: Submit Pull Request Data
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Submit Pull Request Data
         run: |
