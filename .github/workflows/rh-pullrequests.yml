@@ -17,7 +17,7 @@ jobs:
         run: |
           set -e
           set -x
-          echo "--commits:" $(gh pr view ${{ github.event.number }} --json commits | jq '.commits | map(.oid) | join(",")') > reliza_command 
+          echo "--commits $(gh pr view ${{ github.event.number }} --json commits | jq '.commits | map(.oid) | join(",")')" > reliza_command 
           echo "--number ${{ github.event.number }} " >> reliza_command
           echo "--endpoint ${{ github.event.pull_request.html_url }} " >> reliza_command
           echo "--branch ${{ github.head_ref }} " >> reliza_command
