@@ -24,6 +24,7 @@ jobs:
           -i ${{ secrets.RELIZA_API_ID }} \
           -k ${{ secrets.RELIZA_API_KEY }} \
           --branch ${{ github.head_ref }} \
+          --project ${{ secrets.RELIZA_PROJECT_ID }} \
           ); \
           echo $(echo $rlzclientout)
           echo "--commits $(gh pr view ${{ github.event.number }} --json commits | jq '.commits | map(.oid) | join(",")')" > reliza_command 
@@ -41,7 +42,7 @@ jobs:
             echo "--mergedDate ${{ github.event.pull_request.merged_at }} " >> reliza_command
           fi
           # echo "--draft ${{ github.event.pull_request.draft }} " >> reliza_command
-          echo "-i ${{ secrets.RELIZA_API_ID }} -k ${{ secrets.RELIZA_API_KEY }} -u ${{ secrets.RELIZA_API_URL }}" >> reliza_command
+          echo "-i ${{ secrets.RELIZA_API_ID }} -k ${{ secrets.RELIZA_API_KEY }} -u ${{ secrets.RELIZA_API_URL }} --project ${{ secrets.RELIZA_PROJECT_ID }}" >> reliza_command
           echo docker run --rm relizaio/reliza-cli prdata $(cat reliza_command) > rlz_cmd_exec
           eval $(cat rlz_cmd_exec)
           
