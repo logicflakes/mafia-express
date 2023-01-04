@@ -23,6 +23,7 @@ jobs:
           getlatestrelease    \
           -i ${{ secrets.RELIZA_API_ID }} \
           -k ${{ secrets.RELIZA_API_KEY }} \
+          -u ${{ secrets.RELIZA_API_URL }} \
           --branch ${{ github.head_ref }} \
           --project ${{ secrets.RELIZA_PROJECT_ID }} \
           ); \
