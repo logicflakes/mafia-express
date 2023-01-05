@@ -17,5 +17,4 @@ jobs:
           image_name: ${{ secrets.IMAGE_NAME }}
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
-          reliza_api_url: ${{ secrets.RELIZA_API_URL }}
-          reliza_project_id: ${{ secrets.RELIZA_PROJECT_ID }}
+          
