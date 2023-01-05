@@ -9,45 +9,11 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Submit Pull Request Data
-        run: |
-          set -e
-          set -x
-          COMMITS=$(gh pr view ${{ github.event.number }} --json commits | jq '.commits | map(.oid) | join(",")')
-          echo $COMMITS
-          CURRENT_COMMIT=${{ github.sha }}
-          PR_HEAD_COMMIT=${{ github.event.pull_request.head.sha }}
-          echo "currentCommit: $CURRENT_COMMIT"
-          echo "prHeadCommit: $PR_HEAD_COMMIT"
-          rlzclientout=$(docker run --rm relizaio/reliza-cli    \
-          getlatestrelease    \
-          -i ${{ secrets.RELIZA_API_ID }} \
-          -k ${{ secrets.RELIZA_API_KEY }} \
-          -u ${{ secrets.RELIZA_API_URL }} \
-          --branch ${{ github.head_ref }} \
-          --project ${{ secrets.RELIZA_PROJECT_ID }} \
-          ); \
-          echo $(echo $rlzclientout)
-          echo "--commits $(gh pr view ${{ github.event.number }} --json commits | jq '.commits | map(.oid) | join(",")')" > reliza_command 
-          echo "--number ${{ github.event.number }} " >> reliza_command
-          echo "--endpoint ${{ github.event.pull_request.html_url }} " >> reliza_command
-          echo "--branch ${{ github.head_ref }} " >> reliza_command
-          echo "--targetBranch ${{ github.base_ref }} " >> reliza_command
-          echo "--state ${{ github.event.pull_request.state }} " >> reliza_command
-          echo "--title ${{ github.event.pull_request.title }} " >> reliza_command
-          if ${{ github.event.pull_request.closed_at != '' }} ; then
-            echo "--closedDate ${{ github.event.pull_request.closed_at }} " >> reliza_command
-          fi
-          echo "--createdDate ${{ github.event.pull_request.created_at }} " >> reliza_command
-          if ${{ github.event.pull_request.merged_at != ''}} ; then
-            echo "--mergedDate ${{ github.event.pull_request.merged_at }} " >> reliza_command
-          fi
-          # echo "--draft ${{ github.event.pull_request.draft }} " >> reliza_command
-          echo "-i ${{ secrets.RELIZA_API_ID }} -k ${{ secrets.RELIZA_API_KEY }} -u ${{ secrets.RELIZA_API_URL }} --project ${{ secrets.RELIZA_PROJECT_ID }}" >> reliza_command
-          echo docker run --rm relizaio/reliza-cli prdata $(cat reliza_command) > rlz_cmd_exec
-          eval $(cat rlz_cmd_exec)
-          
+      - name: Submit PR Data
+        uses: relizaio/reliza-docker-action@master
+        with: ./.github/workflows/pull-request-workflow.yaml
+          reliza_api_id: ${{ secrets.RELIZA_API_ID }}
+          reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
+          reliza_api_url: ${{ secrets.RELIZA_API_URL }}
+          reliza_project_id: ${{ secrets.RELIZA_PROJECT_ID }}
+      
