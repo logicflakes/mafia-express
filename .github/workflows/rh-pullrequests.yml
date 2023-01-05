@@ -10,8 +10,8 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Submit PR Data
-        uses: relizaio/reliza-docker-action@master
-        with: ./.github/workflows/pull-request-workflow.yaml
+        uses: ./pull-request-workflow.yaml
+        with: 
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
           reliza_api_url: ${{ secrets.RELIZA_API_URL }}
