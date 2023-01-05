@@ -10,7 +10,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Submit PR Data
-        uses: ./pull-request-workflow.yaml
+        uses: logicflakes/reliza-pull-request-action@master
         with: 
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
