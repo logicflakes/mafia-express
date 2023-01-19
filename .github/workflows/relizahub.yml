@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and Push the image
-        uses: relizaio/reliza-docker-action@1.2
+        uses: relizaio/reliza-docker-action@master
         with:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
